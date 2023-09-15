@@ -1,14 +1,13 @@
 let getInfo = ({
-                   firstName: firstName = "Hai",
-                   degree: degree = "vietnamese"
+                   firstName = "Hai",
+                   degree = "vietnamese"
                }) => {
-    console.log('First Name:', firstName);
-    console.log('Degree:', degree);
+    return (`First Name: ${firstName} \nDegree: ${degree}`);
 }
 
-const sv1 = {
+let sv1 = {
     name: 'nguyen',
-    degree: 'malay',
+
     gender: 'male',
     english: 'english'
 }
