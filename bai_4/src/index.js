@@ -6,25 +6,10 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-let student = [
-    {
-        id: 1,
-        name: "hai",
-        age: 20,
-        address: "da nang"
-    },
-    {
-        id: 2,
-        name: "nguyen",
-        age: 19,
-        address: "quang binh"
-    }
-];
+
 
 root.render(
-    <App
-        data={student}
-    />
+    <App />
 );
 
 // If you want to start measuring performance in your app, pass a function
