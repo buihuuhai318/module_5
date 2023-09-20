@@ -31,7 +31,7 @@ function CreateContract() {
                     </div>
                     <hr/>
                         <div className="d-grid gap-2 d-md-block">
-                            <Link style={{marginLeft: '75%', marginRight: '1%'}} className="btn btn-danger" to="/createContract"
+                            <Link style={{marginLeft: '75%', marginRight: '1%'}} className="btn btn-danger" to="/contract"
                                role="button">Back</Link>
                             <button type="submit" className="btn btn-primary">Submit</button>
                         </div>
