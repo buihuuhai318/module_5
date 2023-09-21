@@ -3,8 +3,8 @@ import "bootstrap/dist/js/bootstrap.bundle.min"
 import {Link, Route, Routes} from "react-router-dom";
 import Service from "../service/Service";
 import Customer from "../customer/Customer";
-import  {serviceList} from "../../data/DataService";
-import  {customerList} from "../../data/DataCustomer";
+import {serviceList} from "../../data/DataService";
+import {customerList} from "../../data/DataCustomer";
 import CreateService from "../service/CreateService";
 import React from "react";
 import CreateCustomer from "../customer/CreateCustomer";
@@ -41,17 +41,17 @@ function Header() {
             <div className="card text-bg-dark">
                 <img src="https://i.imgur.com/TRKHgp5.jpg" className="card-img" style={{height: '100%'}} alt="..."/>
                 <div className="card-img-overlay"
-                     style={{ textAlign: 'center', top: '300px', color: 'black', fontSize: '200%' }}>
+                     style={{textAlign: 'center', top: '300px', color: 'black', fontSize: '200%'}}>
                     <h1 className="card-title">#Thehome - Resort</h1>
                 </div>
             </div>
             <Routes>
-                <Route path="/service" exact element={<Service data={serviceList} />} />
-                <Route path="/customer" element={<Customer data={customerList} />} />
-                <Route path="/contract" element={<Contract data={contractList} />} />
-                <Route path="/createService" element={<CreateService />} />
-                <Route path="/createCustomer" element={<CreateCustomer />} />
-                <Route path="/createContract" element={<CreateContract />} />
+                <Route path="/service" exact element={<Service/>}/>
+                <Route path="/customer" element={<Customer/>}/>
+                <Route path="/contract" element={<Contract/>}/>
+                <Route path="/createService" element={<CreateService/>}/>
+                <Route path="/createCustomer" element={<CreateCustomer/>}/>
+                <Route path="/createContract" element={<CreateContract/>}/>
             </Routes>
         </>
     );

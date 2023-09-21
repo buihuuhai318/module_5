@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {Link, Route, Routes} from "react-router-dom";
-import Customer from "../customer/Customer";
-import {customerList} from "../../data/DataCustomer";
-import CreateService from "./CreateService";
+import {Link, Routes} from "react-router-dom";
+import {serviceList} from "../../data/DataService";
 
 
-function Service(props) {
 
-    const {data} = props;
+function Service() {
+
+    const data = serviceList;
 
     const [show, setShow] = useState(false);
 

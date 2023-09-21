@@ -4,10 +4,11 @@ import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
+import {customerList} from "../../data/DataCustomer";
 
-function Customer(props) {
+function Customer() {
 
-    const {data} = props;
+    const data = customerList;
 
     const [show, setShow] = useState(false);
 

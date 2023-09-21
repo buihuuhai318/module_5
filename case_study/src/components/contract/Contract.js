@@ -1,9 +1,10 @@
 import {Link} from "react-router-dom";
 import React from "react";
+import {contractList} from "../../data/DataContract";
 
-function Contract(props) {
+function Contract() {
 
-    const {data} = props;
+    const data = contractList;
 
     return (
         <>
