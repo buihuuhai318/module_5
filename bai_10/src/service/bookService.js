@@ -35,7 +35,7 @@ export const del = async (data) => {
     try {
         return await axios.delete(apiBooks + `/${data.id}`, data);
     } catch (e) {
-        alert("Không có dữ liệu");
+        // alert("Không có dữ liệu");
     }
 }
 

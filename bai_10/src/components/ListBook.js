@@ -33,16 +33,15 @@ function ListBook() {
     }
 
     const deleteBook = async (data) => {
-        console.log(data)
         const res = await bookService.del(data);
-        console.log(res.status)
-        // if (res.status === 200) {
-        //     navigate("/");
-        //     toast("Chỉnh sửa thành công");
-        //     handleClose();
-        // } else {
-        //     toast.error("Chỉnh sửa thất bại")
-        // }
+        setList(await bookService.getAll());
+        if (res.status === 200) {
+            navigate("/");
+            toast("Xoá thành công");
+            handleClose();
+        } else {
+            toast.error("Xoá thất bại")
+        }
     }
 
     return (
@@ -93,7 +92,7 @@ function ListBook() {
                     <Button variant="secondary" onClick={props.action}>
                         Close
                     </Button>
-                    <Button variant="danger" onClick={}>
+                    <Button variant="danger" onClick={() => deleteBook(props.data)}>
                         Delete
                     </Button>
                 </Modal.Footer>
