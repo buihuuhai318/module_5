@@ -1,16 +1,15 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min"
 import {Link, Route, Routes} from "react-router-dom";
-import Service from "../service/Service";
+import Facility from "../facility/Facility";
 import Customer from "../customer/Customer";
-import {serviceList} from "../../data/DataService";
-import {customerList} from "../../data/DataCustomer";
-import CreateService from "../service/CreateService";
+import CreateFacility from "../facility/CreateFacility";
 import React from "react";
 import CreateCustomer from "../customer/CreateCustomer";
 import Contract from "../contract/Contract";
-import {contractList} from "../../data/DataContract";
 import CreateContract from "../contract/CreateContract";
+import EditFacility from "../facility/EditFacility";
+import EditCustomer from "../customer/EditCustomer";
 
 function Header() {
     return (
@@ -26,7 +25,7 @@ function Header() {
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/service">Home</Link>
+                                <Link className="nav-link active" aria-current="page" to="/facility">Home</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/customer">Customer</Link>
@@ -46,12 +45,14 @@ function Header() {
                 </div>
             </div>
             <Routes>
-                <Route path="/service" exact element={<Service/>}/>
+                <Route path="/facility" exact element={<Facility/>}/>
                 <Route path="/customer" element={<Customer/>}/>
                 <Route path="/contract" element={<Contract/>}/>
-                <Route path="/createService" element={<CreateService/>}/>
+                <Route path="/createFacility" element={<CreateFacility/>}/>
                 <Route path="/createCustomer" element={<CreateCustomer/>}/>
                 <Route path="/createContract" element={<CreateContract/>}/>
+                <Route path="/facility/edit/:id" element={<EditFacility/>}/>
+                <Route path="/customer/edit/:id" element={<EditCustomer/>}/>
             </Routes>
         </>
     );

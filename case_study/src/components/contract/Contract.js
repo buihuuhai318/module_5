@@ -1,10 +1,20 @@
 import {Link} from "react-router-dom";
-import React from "react";
-import {contractList} from "../../data/DataContract";
+import React, {useEffect, useState} from "react";
+import * as ContractService from "../../service/ContractService";
 
 function Contract() {
 
-    const data = contractList;
+
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        getContracts();
+    }, [])
+
+    const getContracts = async () => {
+        setList(await ContractService.getAll());
+    }
+
 
     return (
         <>
@@ -32,7 +42,7 @@ function Contract() {
                     </tr>
                     </thead>
                     <tbody>
-                    {data.map((contract, index) => (
+                    {list.map((contract, index) => (
                         <tr key={index}>
                             <td>{contract.contractNumber}</td>
                             <td>{contract.startDate}</td>

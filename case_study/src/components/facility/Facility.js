@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {Link, Routes} from "react-router-dom";
-import {serviceList} from "../../data/DataService";
+import {Link, useNavigate} from "react-router-dom";
+import * as FacilityService from "../../service/FacilityService";
+import {toast} from "react-toastify";
 
 
 
-function Service() {
+function Facility() {
 
-    const data = serviceList;
+    const navigate = useNavigate();
+
+    const [list, setList] = useState([]);
 
     const [show, setShow] = useState(false);
 
@@ -24,12 +27,32 @@ function Service() {
         console.log(object);
     }
 
+    const getServices = async () => {
+        setList(await FacilityService.getAll());
+    }
+
+    useEffect(() => {
+        getServices();
+    }, [])
+
+    const deleteService = async (data) => {
+        const res = await FacilityService.del(data);
+        setList(await FacilityService.getAll());
+        if (res.status === 200) {
+            navigate("/facility");
+            toast("Xoá thành công");
+            handleClose();
+        } else {
+            toast.error("Xoá thất bại")
+        }
+    }
+
 
     return (
         <>
             <div className="row" style={{margin: '5% 12% 5% 12%'}}>
                 <div style={{width: '4%', position: 'fixed', right: '80px', top: '90vh', zIndex: '9999'}}>
-                    <Link to="/createService" type="button" className="btn btn-outline-success"
+                    <Link to="/createFacility" type="button" className="btn btn-outline-success"
                        style={{borderRadius: '30%'}}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                              className="bi bi-plus" viewBox="0 0 16 16">
@@ -41,7 +64,7 @@ function Service() {
             </div>
 
             <div className="row" style={{margin: '5% 12% 5% 12%', display: 'flex'}}>
-                {data.map((service, index) => (
+                {list.map((service, index) => (
                     <div className="col-xl-4 col-sm-6 col-12" style={{display: 'flex', marginBottom: '3%'}} key={index}>
                         <div className="card" style={{width: '23rem'}}>
                             <img src={service.img} className="card-img-top" style={{height: '13rem'}} alt="..."/>
@@ -49,7 +72,7 @@ function Service() {
                                 <h5 className="card-title">{service.title}</h5>
                                 <p className="card-text">{service.description}</p>
                                 <div className="text-end">
-                                    <a href="#" className="btn btn-primary" style={{marginRight: '1%'}}>View</a>
+                                    <Link href="#" className="btn btn-primary" style={{marginRight: '1%'}} to={`/facility/edit/${service.id}`}>Edit</Link>
                                     <Button variant="danger" onClick={() => handleShow(service, service.id)}>
                                         Delete
                                     </Button>
@@ -62,7 +85,7 @@ function Service() {
                     </div>
                 ))}
                 <nav aria-label="Page navigation example">
-                    <ul className="pagination" style={{marginLeft: '37%'}}>
+                    <ul className="pagination" style={{marginLeft: '40%'}}>
                         <li className="page-item">
                             <a className="page-link" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
@@ -80,30 +103,29 @@ function Service() {
                     </ul>
                 </nav>
             </div>
-            <Routes>
-                {/*<Route path="/createService" element={<CreateService />} />*/}
-            </Routes>
         </>
     );
+
+    function MyModal(props) {
+        return (
+            <>
+                <Modal.Header closeButton>
+                    <Modal.Title>{props.data.id}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure to delete {props.data.title}!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={props.action}>
+                        Close
+                    </Button>
+                    <Button variant="danger" onClick={() => deleteService(props.data)}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </>
+        )
+    }
 }
 
-function MyModal(props) {
-    return (
-        <>
-            <Modal.Header closeButton>
-                <Modal.Title>{props.data.id}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Are you sure to delete {props.data.title}!</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={props.action}>
-                    Close
-                </Button>
-                <Button variant="danger" onClick={props.action}>
-                    Delete
-                </Button>
-            </Modal.Footer>
-        </>
-    )
-}
 
-export default Service;
+
+export default Facility;

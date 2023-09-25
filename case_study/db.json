@@ -1,0 +1,143 @@
+{
+  "customerList": [
+    {
+      "id": 1,
+      "name": "Nguyễn Văn A",
+      "birthday": "1990-05-15",
+      "gender": "Nam",
+      "idCard": "123456789",
+      "phone": "0901234567",
+      "email": "nguyenvana@example.com",
+      "type": "Diamond",
+      "address": "123 Đường ABC, Quận XYZ, Thành phố HCM"
+    },
+    {
+      "id": 2,
+      "name": "Trần Thị B",
+      "birthday": "1985-02-20",
+      "gender": "Nữ",
+      "idCard": "987654321",
+      "phone": "0912345678",
+      "email": "tranthib@example.com",
+      "type": "Platinum",
+      "address": "456 Đường XYZ, Quận ABC, Thành phố Hà Nội"
+    },
+    {
+      "id": 3,
+      "name": "Lê Văn C",
+      "birthday": "1992-09-10",
+      "gender": "Nam",
+      "idCard": "567890123",
+      "phone": "0987654321",
+      "email": "levanc@example.com",
+      "type": "Gold",
+      "address": "789 Đường DEF, Quận MNO, Thành phố Đà Nẵng"
+    }
+  ],
+  "serviceList": [
+    {
+      "id": 1,
+      "area": 20,
+      "rental": 200,
+      "occupancy": 10,
+      "type": "Month",
+      "img": "https://i.imgur.com/HuUb5GT.jpg",
+      "title": "King",
+      "description": "Mô tả mục 1"
+    },
+    {
+      "id": 2,
+      "area": 20,
+      "rental": 200,
+      "occupancy": 10,
+      "type": "day",
+      "img": "https://i.imgur.com/lrm26cZ.jpg",
+      "title": "Mục 2",
+      "description": "Mô tả mục 2"
+    },
+    {
+      "id": 3,
+      "area": 20,
+      "rental": 200,
+      "occupancy": 10,
+      "type": "day",
+      "img": "https://i.imgur.com/a6Sv5Vf.jpg",
+      "title": "Mục 3",
+      "description": "Mô tả mục 3"
+    },
+    {
+      "id": 4,
+      "area": 20,
+      "rental": 200,
+      "occupancy": 10,
+      "type": "day",
+      "img": "https://i.imgur.com/o79Xih3.jpg",
+      "title": "Mục 4",
+      "description": "Mô tả mục 4"
+    },
+    {
+      "id": 5,
+      "area": 20,
+      "rental": 200,
+      "occupancy": 10,
+      "type": "day",
+      "img": "https://i.imgur.com/tP1YxU2.jpg",
+      "title": "Mục 5",
+      "description": "Mô tả mục 5"
+    },
+    {
+      "id": 6,
+      "area": 20,
+      "rental": 200,
+      "occupancy": 10,
+      "type": "day",
+      "img": "https://i.imgur.com/ICj1dg0.jpg",
+      "title": "Mục 6",
+      "description": "Mô tả mục 6"
+    }
+  ],
+  "contractList": [
+    {
+      "contractNumber": "HD001",
+      "startDate": "2023-01-15",
+      "endDate": "2023-03-15",
+      "depositAmount": 5000000,
+      "totalPaymentAmount": 15000000
+    },
+    {
+      "contractNumber": "HD002",
+      "startDate": "2023-02-10",
+      "endDate": "2023-04-10",
+      "depositAmount": 6000000,
+      "totalPaymentAmount": 18000000
+    },
+    {
+      "contractNumber": "HD003",
+      "startDate": "2023-03-05",
+      "endDate": "2023-05-05",
+      "depositAmount": 5500000,
+      "totalPaymentAmount": 16500000
+    },
+    {
+      "contractNumber": "HD004",
+      "startDate": "2023-04-20",
+      "endDate": "2023-06-20",
+      "depositAmount": 7000000,
+      "totalPaymentAmount": 21000000
+    },
+    {
+      "contractNumber": "HD005",
+      "startDate": "2023-05-15",
+      "endDate": "2023-07-15",
+      "depositAmount": 4500000,
+      "totalPaymentAmount": 13500000
+    },
+    {
+      "contractNumber": "HD006",
+      "startDate": "2023-06-08",
+      "endDate": "2023-08-08",
+      "depositAmount": 6500000,
+      "totalPaymentAmount": 19500000
+    }
+  ]
+}

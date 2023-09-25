@@ -3,23 +3,36 @@ import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import * as ContractService from "../../service/ContractService";
 
 function CreateContract() {
     const navigate = useNavigate();
+
+    const contractDefault = {
+        idContract: "",
+        dateIn: "",
+        dateOut: "",
+        deposit: 0,
+        total: 0,
+    };
+
+    const createContract = async (data) => {
+        data.quantity = parseInt(data.quantity);
+        const res = await ContractService.create(data);
+        if (res.status === 201) {
+            navigate("/contract");
+            toast("Thêm mới thành công");
+        } else {
+            toast.error("Thêm mới thất bại")
+        }
+    }
+
     return (
         <>
             <Formik
-                initialValues={{
-                    idContract: "",
-                    dateIn: "",
-                    dateOut: "",
-                    deposit: 0,
-                    total: 0,
-                }}
+                initialValues={contractDefault}
                 onSubmit={(values => {
-                    console.log(values);
-                    navigate("/contract")
-                    toast("Create Successfully");
+                    createContract(values);
                 })}
                 validationSchema={Yup.object({
                     idContract: Yup.string()

@@ -1,14 +1,16 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
-import {customerList} from "../../data/DataCustomer";
+import * as CustomerService from "../../service/CustomerService";
+import {toast} from "react-toastify";
+
 
 function Customer() {
 
-    const data = customerList;
+    const [list, setList] = useState([]);
 
     const [show, setShow] = useState(false);
 
@@ -23,6 +25,26 @@ function Customer() {
         setMyModal(object);
         console.log(object);
     }
+
+    useEffect(() => {
+        getCustomers();
+    }, [])
+
+    const getCustomers = async () => {
+        setList(await CustomerService.getAll());
+    }
+
+    const deleteCustomer = async (data) => {
+        const res = await CustomerService.del(data);
+        setList(await CustomerService.getAll());
+        if (res.status === 200) {
+            toast("Xoá thành công");
+            handleClose();
+        } else {
+            toast.error("Xoá thất bại")
+        }
+    }
+
 
     return (
         <>
@@ -55,7 +77,7 @@ function Customer() {
                     </tr>
                     </thead>
                     <tbody>
-                    {data.map((customer, index) => (
+                    {list.map((customer, index) => (
                         <tr>
                             <th scope="row">{index}</th>
                             <td>{customer.name}</td>
@@ -67,8 +89,8 @@ function Customer() {
                             <td>{customer.type}</td>
                             {/*<td>{customer.address}</td>*/}
                             <td>
-                                <button type="button" className="btn btn-warning" style={{marginRight: '1%'}}>Edit
-                                </button>
+                                <Link to={`/customer/edit/${customer.id}`} className="btn btn-warning" style={{marginRight: '1%'}}>Edit
+                                </Link>
                                 <Button variant="danger" onClick={() => handleShow(customer)}>
                                     Delete
                                 </Button>
@@ -81,7 +103,7 @@ function Customer() {
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
-                    <ul className="pagination" style={{marginLeft: '37%'}}>
+                    <ul className="pagination" style={{marginLeft: '40%'}}>
                         <li className="page-item">
                             <a className="page-link" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
@@ -99,26 +121,27 @@ function Customer() {
                 </nav>
             </div>
         </>
-    )
+    );
+    function MyModal({data, action}) {
+        return (
+            <>
+                <Modal.Header closeButton>
+                    <Modal.Title>{data.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure to delete {data.name}!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={action}>
+                        Close
+                    </Button>
+                    <Button variant="danger" onClick={() => deleteCustomer(data)}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </>
+        )
+    }
 }
 
-function MyModal(props) {
-    return (
-        <>
-            <Modal.Header closeButton>
-                <Modal.Title>{props.data.name}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Are you sure to delete {props.data.name}!</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={props.action}>
-                    Close
-                </Button>
-                <Button variant="danger" onClick={props.action}>
-                    Delete
-                </Button>
-            </Modal.Footer>
-        </>
-    )
-}
+
 
 export default Customer;

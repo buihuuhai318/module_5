@@ -4,25 +4,41 @@ import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import * as FacilityService from "../../service/FacilityService";
 
-function CreateService() {
+function CreateFacility() {
+
     const navigate = useNavigate();
+    const createService = async (data) => {
+        data.area = parseInt(data.area);
+        data.rental = parseInt(data.rental);
+        data.occupancy = parseInt(data.occupancy);
+        const res = await FacilityService.create(data);
+        if (res.status === 201) {
+            navigate("/facility");
+            toast("Thêm mới thành công");
+        } else {
+            toast.error("Thêm mới thất bại")
+        }
+    }
+
+    const serviceDefault = {
+        name: "",
+        area: "",
+        rental: "",
+        occupancy: "",
+        type: "Day",
+        img: ""
+    }
+
     return (
         <Formik
-            initialValues={{
-                name: "",
-                area: "",
-                rental: "",
-                occupancy: "",
-                type: "Day"
-            }}
+            initialValues={serviceDefault}
             onSubmit={(values => {
-                console.log(values);
-                navigate("/service")
-                toast("Create Successfully");
+               createService(values);
             })}
             validationSchema={Yup.object({
-                name: Yup.string()
+                title: Yup.string()
                     .required("Must not empty")
                     .matches(/([A-Z][a-z]+)/, "The name must not contain numbers, and the initial letters of each word must be capitalized."),
                 area: Yup.number()
@@ -40,8 +56,8 @@ function CreateService() {
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Service's Name</label>
                         <Field type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                               name="name"/>
-                        <ErrorMessage name="name" component="span" style={{color: "red"}}></ErrorMessage>
+                               name="title"/>
+                        <ErrorMessage name="title" component="span" style={{color: "red"}}></ErrorMessage>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleInputPassword1" className="form-label">Usable Area</label>
@@ -66,6 +82,15 @@ function CreateService() {
                             <option value="Month">Month</option>
                         </Field>
                     </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputPassword1" className="form-label">Description</label>
+                        <Field type="text" className="form-control" id="exampleInputPassword1" name="description"/>
+                        <ErrorMessage name="description" component="span" style={{color: "red"}}></ErrorMessage>
+                    </div>
+                    <div className="input-group">
+                        <Field type="text" className="form-control" name="img" id="inputGroupFile04"
+                               aria-describedby="inputGroupFileAddon04" aria-label="Upload"/>
+                    </div>
                     <hr/>
                     <div className="d-grid gap-2 d-md-block">
                         <Link style={{marginLeft: '75%', marginRight: '1%'}} className="btn btn-danger" to="/service"
@@ -78,4 +103,4 @@ function CreateService() {
     )
 }
 
-export default CreateService;
+export default CreateFacility;
