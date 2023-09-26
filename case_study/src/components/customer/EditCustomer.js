@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as CustomerService from "../../service/CustomerService";
 import {useEffect, useState} from "react";
+import * as TypeCustomerService from "../../service/TypeCustomerService";
 
 
 function EditCustomer() {
@@ -15,7 +16,12 @@ function EditCustomer() {
 
     const navigate = useNavigate();
 
+    const [types, setTypes] = useState([]);
+
+    const [initialTypeCustomer, setInitialTypeCustomer] = useState({});
+
     const editCustomer = async (data) => {
+        data.typeCustomer = JSON.parse(initialTypeCustomer);
         const res = await CustomerService.edit(data);
         if (res.status === 200) {
             navigate("/customer");
@@ -25,19 +31,26 @@ function EditCustomer() {
         }
     }
 
+    const getTypes = async () => {
+        setTypes(await TypeCustomerService.getAll());
+    }
+
     useEffect(() => {
         getCustomer();
+        getTypes();
     }, [id])
 
     const getCustomer = async () => {
-        let customer = await CustomerService.findById(id);
-        customer = customer.data;
-        setCustomer(customer);
+        let customerData = await CustomerService.findById(id);
+        customerData = customerData.data;
+        setCustomer(customerData);
+        setInitialTypeCustomer(JSON.stringify(customerData.typeCustomer));
+        console.log(customerData)
     }
-
+    console.log(initialTypeCustomer)
 
         return (
-            // customer &&
+            customer &&
             <Formik
                 initialValues={customer}
                 onSubmit={(values) => {
@@ -101,12 +114,14 @@ function EditCustomer() {
                         <div className="mb-3">
                             <label htmlFor="select1" className="form-label">Type</label>
                             <Field as="select" className="form-select" aria-label="Default select example" id="select1"
-                                   name="type">
-                                <option value="Diamond">Diamond</option>
-                                <option value="Platinum">Platinum</option>
-                                <option value="Gold">Gold</option>
-                                <option value="Silver">Silver</option>
-                                <option value="Member">Member</option>
+                                   name="typeCustomer" value={initialTypeCustomer}
+                                   onChange={(e) => {
+                                       const selectedValue = e.target.value;
+                                       setInitialTypeCustomer(selectedValue);
+                                   }}>
+                                {types.map((type, index) => (
+                                    <option key={index} value={JSON.stringify(type)}>{type.name}</option>
+                                ))}
                             </Field>
                         </div>
                         <div className="mb-3">

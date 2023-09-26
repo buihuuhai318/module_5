@@ -4,10 +4,22 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as CustomerService from "../../service/CustomerService";
+import {useEffect, useState} from "react";
+import * as TypeCustomerService from "../../service/TypeCustomerService";
 
 
 function CreateCustomer() {
     const navigate = useNavigate();
+
+    const [types, setTypes] = useState([]);
+
+    useEffect(() => {
+        getTypes();
+    }, [])
+
+    const getTypes = async () => {
+        setTypes(await TypeCustomerService.getAll());
+    }
 
     const customerDefault = {
         name: "",
@@ -17,10 +29,11 @@ function CreateCustomer() {
         phone: "",
         email: "",
         address: "",
-        type: "Member"
+        typeCustomer: {}
     }
     const createCustomer = async (data) => {
         const res = await CustomerService.create(data);
+        data.typeCustomer = JSON.parse(data.typeCustomer);
         if (res.status === 201) {
             navigate("/customer");
             toast("Thêm mới thành công");
@@ -94,12 +107,11 @@ function CreateCustomer() {
                     <div className="mb-3">
                         <label htmlFor="select1" className="form-label">Type</label>
                         <Field as="select" className="form-select" aria-label="Default select example" id="select1"
-                               name="type">
-                            <option value="Diamond">Diamond</option>
-                            <option value="Platinum">Platinum</option>
-                            <option value="Gold">Gold</option>
-                            <option value="Silver">Silver</option>
-                            <option value="Member">Member</option>
+                               name="typeCustomer">
+                            {types.map((type, index) => (
+                                <option key={index} value={JSON.stringify(type)}>{type.name}</option>
+                            ))}
+
                         </Field>
                     </div>
                     <div className="mb-3">

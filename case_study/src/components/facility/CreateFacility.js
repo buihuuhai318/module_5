@@ -1,18 +1,31 @@
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as FacilityService from "../../service/FacilityService";
+import * as TypeFacilityService from "../../service/TypeFacilityService";
 
 function CreateFacility() {
 
     const navigate = useNavigate();
+
+    const [types, setTypes] = useState([]);
+
+    const getTypes = async () => {
+        setTypes(await TypeFacilityService.getAll());
+    }
+
+    useEffect(() => {
+        getTypes();
+    }, [])
+
     const createService = async (data) => {
         data.area = parseInt(data.area);
         data.rental = parseInt(data.rental);
         data.occupancy = parseInt(data.occupancy);
+        data.typeFacility = JSON.parse(data.typeFacility);
         const res = await FacilityService.create(data);
         if (res.status === 201) {
             navigate("/facility");
@@ -23,12 +36,13 @@ function CreateFacility() {
     }
 
     const serviceDefault = {
-        name: "",
+        title: "",
         area: "",
         rental: "",
         occupancy: "",
         type: "Day",
-        img: ""
+        img: "",
+        typeFacility: {}
     }
 
     return (
@@ -53,6 +67,15 @@ function CreateFacility() {
 
             <div className="row" style={{margin: '5% auto 5% auto', width: '50%'}}>
                 <Form>
+                    <div className="mb-3">
+                        <label htmlFor="select" className="form-label">Facility Type</label>
+                        <Field as="select" className="form-select" aria-label="Default select example" id="select"
+                               name="typeFacility">
+                            {types.map((type, index) => (
+                                <option key={index} value={JSON.stringify(type)}>{type.name}</option>
+                            ))}
+                        </Field>
+                    </div>
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Service's Name</label>
                         <Field type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"

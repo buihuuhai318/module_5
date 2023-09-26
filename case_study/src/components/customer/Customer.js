@@ -78,15 +78,15 @@ function Customer() {
                     </thead>
                     <tbody>
                     {list.map((customer, index) => (
-                        <tr>
-                            <th scope="row">{index}</th>
+                        <tr key={index}>
+                            <th scope="row">{index + 1}</th>
                             <td>{customer.name}</td>
                             <td>{customer.birthday}</td>
                             <td>{customer.gender}</td>
                             <td>{customer.idCard}</td>
                             <td>{customer.phone}</td>
                             <td>{customer.email}</td>
-                            <td>{customer.type}</td>
+                            <td>{customer.typeCustomer.name}</td>
                             {/*<td>{customer.address}</td>*/}
                             <td>
                                 <Link to={`/customer/edit/${customer.id}`} className="btn btn-warning" style={{marginRight: '1%'}}>Edit

@@ -8,7 +8,10 @@
       "idCard": "123456789",
       "phone": "0901234567",
       "email": "nguyenvana@example.com",
-      "type": "Diamond",
+      "typeCustomer": {
+        "id": 4,
+        "name": "Silver"
+      },
       "address": "123 Đường ABC, Quận XYZ, Thành phố HCM"
     },
     {
@@ -19,7 +22,10 @@
       "idCard": "987654321",
       "phone": "0912345678",
       "email": "tranthib@example.com",
-      "type": "Platinum",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
       "address": "456 Đường XYZ, Quận ABC, Thành phố Hà Nội"
     },
     {
@@ -30,8 +36,39 @@
       "idCard": "567890123",
       "phone": "0987654321",
       "email": "levanc@example.com",
-      "type": "Gold",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
       "address": "789 Đường DEF, Quận MNO, Thành phố Đà Nẵng"
+    },
+    {
+      "name": "Bui Huu Hai",
+      "birthday": "2023-09-14",
+      "gender": "",
+      "idCard": "123123123123",
+      "phone": "0902409424",
+      "email": "buihuuhai318@gmail.com",
+      "address": "da nang",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
+      "id": 4
+    },
+    {
+      "name": "Bui Huu Hai",
+      "birthday": "2023-09-30",
+      "gender": "",
+      "idCard": "123123123123",
+      "phone": "0902409424",
+      "email": "buihuuhai318@gmail.com",
+      "address": "13123213",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
+      "id": 5
     }
   ],
   "serviceList": [
@@ -94,6 +131,71 @@
       "img": "https://i.imgur.com/ICj1dg0.jpg",
       "title": "Mục 6",
       "description": "Mô tả mục 6"
+    },
+    {
+      "name": "",
+      "area": 1,
+      "rental": 1,
+      "occupancy": 1,
+      "type": "Day",
+      "img": "1",
+      "typeFacility": {
+        "id": 3,
+        "name": "Room"
+      },
+      "title": "King Test",
+      "description": "1",
+      "id": 8
+    },
+    {
+      "title": "King test",
+      "area": 1,
+      "rental": 1,
+      "occupancy": 1,
+      "type": "Day",
+      "img": "1",
+      "typeFacility": {
+        "id": 2,
+        "name": "House"
+      },
+      "description": "1",
+      "id": 9
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "name": "Villa"
+    },
+    {
+      "id": 2,
+      "name": "House"
+    },
+    {
+      "id": 3,
+      "name": "Room"
+    }
+  ],
+  "typesCustomer": [
+    {
+      "id": 1,
+      "name": "Diamond"
+    },
+    {
+      "id": 2,
+      "name": "Platinum"
+    },
+    {
+      "id": 3,
+      "name": "Gold"
+    },
+    {
+      "id": 4,
+      "name": "Silver"
+    },
+    {
+      "id": 5,
+      "name": "Member"
     }
   ],
   "contractList": [

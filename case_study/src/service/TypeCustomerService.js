@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const apiService = "http://localhost:8080/types";
+const apiService = "http://localhost:8080/typesCustomer";
 
 export const getAll = async () => {
     try {

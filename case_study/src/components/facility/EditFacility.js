@@ -5,6 +5,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as FacilityService from "../../service/FacilityService";
+import * as TypeFacilityService from "../../service/TypeFacilityService";
 
 function EditFacility() {
 
@@ -13,10 +14,20 @@ function EditFacility() {
     const [facility, setFacility] = useState( null);
 
     const navigate = useNavigate();
+
+    const [types, setTypes] = useState([]);
+
+    const [initialTypeFacility, setInitialTypeFacility] = useState({});
+
+    const getTypes = async () => {
+        setTypes(await TypeFacilityService.getAll());
+    }
+
     const editFacility = async (data) => {
         data.area = parseInt(data.area);
         data.rental = parseInt(data.rental);
         data.occupancy = parseInt(data.occupancy);
+        data.typeFacility = JSON.parse(initialTypeFacility);
         const res = await FacilityService.edit(data);
         if (res.status === 200) {
             navigate("/facility");
@@ -28,12 +39,15 @@ function EditFacility() {
 
     useEffect(() => {
         getFacility();
+        getTypes();
     }, [id])
 
+
     const getFacility = async () => {
-        let favility = await FacilityService.findById(id);
-        favility = favility.data;
-        setFacility(favility);
+        let facilityData = await FacilityService.findById(id);
+        facilityData = facilityData.data;
+        setFacility(facilityData);
+        setInitialTypeFacility(JSON.stringify(facilityData.typeFacility));
     }
 
 
@@ -60,6 +74,19 @@ function EditFacility() {
 
                 <div className="row" style={{margin: '5% auto 5% auto', width: '50%'}}>
                     <Form>
+                        <div className="mb-3">
+                            <label htmlFor="select" className="form-label">Facility Type</label>
+                            <Field as="select" className="form-select" aria-label="Default select example" id="select"
+                                   name="typeFacility" value={initialTypeFacility}
+                                   onChange={(e) => {
+                                       const selectedValue = e.target.value;
+                                       setInitialTypeFacility(selectedValue);
+                                   }}>
+                                {types.map((type, index) => (
+                                    <option key={index} value={JSON.stringify(type)}>{type.name}</option>
+                                ))}
+                            </Field>
+                        </div>
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Service's Name</label>
                             <Field type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
