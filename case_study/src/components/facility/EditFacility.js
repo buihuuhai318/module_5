@@ -17,7 +17,7 @@ function EditFacility() {
 
     const [types, setTypes] = useState([]);
 
-    const [initialTypeFacility, setInitialTypeFacility] = useState({});
+    const [initialTypeFacility, setInitialTypeFacility] = useState(null);
 
     const getTypes = async () => {
         setTypes(await TypeFacilityService.getAll());
@@ -51,13 +51,17 @@ function EditFacility() {
     }
 
 
-    if (facility != null) {
+    if (initialTypeFacility === null) {
+        return (
+            <InitType/>
+        )
+    } else {
         return (
             <Formik
                 initialValues={facility}
-                onSubmit={(values) => {
+                onSubmit={(values => {
                     editFacility(values);
-                }}
+                })}
                 validationSchema={Yup.object({
                     title: Yup.string()
                         .required("Must not empty")
@@ -71,63 +75,14 @@ function EditFacility() {
                 })}
             >
 
-
                 <div className="row" style={{margin: '5% auto 5% auto', width: '50%'}}>
                     <Form>
-                        <div className="mb-3">
-                            <label htmlFor="select" className="form-label">Facility Type</label>
-                            <Field as="select" className="form-select" aria-label="Default select example" id="select"
-                                   name="typeFacility" value={initialTypeFacility}
-                                   onChange={(e) => {
-                                       const selectedValue = e.target.value;
-                                       setInitialTypeFacility(selectedValue);
-                                   }}>
-                                {types.map((type, index) => (
-                                    <option key={index} value={JSON.stringify(type)}>{type.name}</option>
-                                ))}
-                            </Field>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleInputEmail1" className="form-label">Service's Name</label>
-                            <Field type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                   name="title"/>
-                            <ErrorMessage name="title" component="span" style={{color: "red"}}></ErrorMessage>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleInputPassword1" className="form-label">Usable Area</label>
-                            <Field type="number" className="form-control" id="exampleInputPassword1" name="area"/>
-                            <ErrorMessage name="area" component="span" style={{color: "red"}}></ErrorMessage>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleInputPassword1" className="form-label">Rental Fee</label>
-                            <Field type="number" className="form-control" id="exampleInputPassword1" name="rental"/>
-                            <ErrorMessage name="rental" component="span" style={{color: "red"}}></ErrorMessage>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleInputPassword1" className="form-label">Maximum Occupancy</label>
-                            <Field type="number" className="form-control" id="exampleInputPassword1" name="occupancy"/>
-                            <ErrorMessage name="occupancy" component="span" style={{color: "red"}}></ErrorMessage>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="select" className="form-label">Lease Type</label>
-                            <Field as="select" className="form-select" aria-label="Default select example" id="select"
-                                   name="type">
-                                <option value="Day">Day</option>
-                                <option value="Month">Month</option>
-                            </Field>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleInputPassword1" className="form-label">Description</label>
-                            <Field type="text" className="form-control" id="exampleInputPassword1" name="description"/>
-                            <ErrorMessage name="description" component="span" style={{color: "red"}}></ErrorMessage>
-                        </div>
-                        <div className="input-group">
-                            <Field type="text" className="form-control" name="img" id="inputGroupFile04"
-                                   aria-describedby="inputGroupFileAddon04" aria-label="Upload"/>
-                        </div>
+                        <FormCreate data={initialTypeFacility}/>
+                        <br/>
                         <hr/>
                         <div className="d-grid gap-2 d-md-block">
-                            <Link style={{marginLeft: '75%', marginRight: '1%'}} className="btn btn-danger" to="/service"
+                            <Link style={{marginLeft: '75%', marginRight: '1%'}} className="btn btn-danger"
+                                  to="/service"
                                   role="button">Back</Link>
                             <button type="submit" className="btn btn-primary">Submit</button>
                         </div>
@@ -135,6 +90,180 @@ function EditFacility() {
                 </div>
             </Formik>
         )
+    }
+
+    function InitType() {
+        return (
+            <div className="row" style={{margin: '5% auto 5% auto', width: '50%'}}>
+                <form action="">
+                    <div className="mb-3">
+                        <label htmlFor="select" className="form-label">Facility Type</label>
+                        <select className="form-select" aria-label="Default select example" id="select"
+                                name="typeFacility" value={initialTypeFacility}
+                                onChange={(e) => {
+                                    const selectedValue = e.target.value;
+                                    setInitialTypeFacility(selectedValue);
+                                }}>
+                            {types.map((type, index) => (
+                                <option key={index} value={JSON.stringify(type)}>{type.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+
+    function BaseFacility() {
+        return (
+            <>
+                <div className="mb-3">
+                    <label htmlFor="select" className="form-label">Facility Type</label>
+                    <Field as="select" className="form-select" aria-label="Default select example" id="select"
+                           name="typeFacility" value={initialTypeFacility}
+                           onChange={(e) => {
+                               const selectedValue = e.target.value;
+                               setInitialTypeFacility(selectedValue);
+                           }}>
+                        {types.map((type, index) => (
+                            <option key={index} value={JSON.stringify(type)}>{type.name}</option>
+                        ))}
+                    </Field>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputEmail1" className="form-label">Service's Name</label>
+                    <Field type="text" className="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp"
+                           name="title"/>
+                    <ErrorMessage name="title" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputPassword1" className="form-label">Usable Area</label>
+                    <Field type="number" className="form-control" id="exampleInputPassword1" name="area"/>
+                    <ErrorMessage name="area" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputPassword1" className="form-label">Rental Fee</label>
+                    <Field type="number" className="form-control" id="exampleInputPassword1" name="rental"/>
+                    <ErrorMessage name="rental" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputPassword1" className="form-label">Maximum Occupancy</label>
+                    <Field type="number" className="form-control" id="exampleInputPassword1" name="occupancy"/>
+                    <ErrorMessage name="occupancy" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="select" className="form-label">Lease Type</label>
+                    <Field as="select" className="form-select" aria-label="Default select example" id="select"
+                           name="type">
+                        <option value="Day">Day</option>
+                        <option value="Month">Month</option>
+                    </Field>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputPassword1" className="form-label">Description</label>
+                    <Field type="text" className="form-control" id="exampleInputPassword1" name="description"/>
+                    <ErrorMessage name="description" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="inputGroupFile04" className="form-label">Image</label>
+                    <Field type="text" className="form-control" name="img" id="inputGroupFile04"
+                           aria-describedby="inputGroupFileAddon04" aria-label="Upload"/>
+                </div>
+            </>
+        )
+    }
+
+    function Villa() {
+        return (
+            <>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputEmail1" className="form-label">Pool Area</label>
+                    <Field type="text" className="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp"
+                           name="pool"/>
+                    <ErrorMessage name="pool" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+            </>
+        )
+    }
+
+    function House() {
+        return (
+            <>
+                <div className="mb-3">
+                    <label htmlFor="select" className="form-label">Room Standard</label>
+                    <Field as="select" className="form-select" aria-label="Default select example" id="select"
+                           name="standard">
+                        <option value="Standard Room">Standard Room</option>
+                        <option value="Deluxe Room">Deluxe Room</option>
+                        <option value="Suite">Suite</option>
+                        <option value="Family Room">Family Room</option>
+                    </Field>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputEmail1" className="form-label">Number Of Floors</label>
+                    <Field type="text" className="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp"
+                           name="floors"/>
+                    <ErrorMessage name="floors" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputEmail1" className="form-label">Description Of Other Amenities</label>
+                    <Field type="text" className="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp"
+                           name="amenities"/>
+                    <ErrorMessage name="amenities" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+            </>
+        )
+    }
+
+    function Room() {
+        return (
+            <>
+                <div className="mb-3">
+                    <label htmlFor="exampleInputEmail1" className="form-label">Complimentary Services</label>
+                    <Field type="text" className="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp"
+                           name="complimentary"/>
+                    <ErrorMessage name="complimentary" component="span" style={{color: "red"}}></ErrorMessage>
+                </div>
+            </>
+        )
+    }
+
+    function FormCreate(props) {
+        switch (JSON.parse(props.data).id) {
+            case 1:
+                return (
+                    <>
+                        <BaseFacility/>
+                        <House/>
+                        <Villa/>
+                    </>
+                )
+            case 2:
+                return (
+                    <>
+                        <BaseFacility/>
+                        <House/>
+                    </>
+                )
+            case 3:
+                return (
+                    <>
+                        <BaseFacility/>
+                        <Room/>
+                    </>
+                )
+            default:
+                return (
+                    <>
+                        <BaseFacility/>
+                    </>
+                )
+        }
     }
 }
 

@@ -28,7 +28,7 @@ function CreateFacility() {
         data.area = parseInt(data.area);
         data.rental = parseInt(data.rental);
         data.occupancy = parseInt(data.occupancy);
-        data.typeFacility = JSON.parse(data.typeFacility);
+        data.typeFacility = JSON.parse(initialTypeFacility);
         const res = await FacilityService.create(data);
         if (res.status === 201) {
             navigate("/facility");
@@ -89,11 +89,6 @@ function CreateFacility() {
         )
     }
 
-    function changeType(e) {
-        const selectedValue = e.target.value;
-        setInitialTypeFacility(selectedValue);
-    }
-
     function InitType() {
         return (
             <div className="row" style={{margin: '5% auto 5% auto', width: '50%'}}>
@@ -102,7 +97,10 @@ function CreateFacility() {
                         <label htmlFor="select" className="form-label">Facility Type</label>
                         <select className="form-select" aria-label="Default select example" id="select"
                                 name="typeFacility" value={initialTypeFacility}
-                                onChange={changeType}>
+                                onChange={(e) => {
+                                    const selectedValue = e.target.value;
+                                    setInitialTypeFacility(selectedValue);
+                                }}>
                             {types.map((type, index) => (
                                 <option key={index} value={JSON.stringify(type)}>{type.name}</option>
                             ))}
@@ -120,7 +118,10 @@ function CreateFacility() {
                     <label htmlFor="select" className="form-label">Facility Type</label>
                     <Field as="select" className="form-select" aria-label="Default select example" id="select"
                            name="typeFacility" value={initialTypeFacility}
-                           onChange={changeType}>
+                           onChange={(e) => {
+                               const selectedValue = e.target.value;
+                               setInitialTypeFacility(selectedValue);
+                           }}>
                         {types.map((type, index) => (
                             <option key={index} value={JSON.stringify(type)}>{type.name}</option>
                         ))}

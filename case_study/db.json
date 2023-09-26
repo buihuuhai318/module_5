@@ -160,6 +160,24 @@
       },
       "description": "1",
       "id": 9
+    },
+    {
+      "title": "King House",
+      "area": 12,
+      "rental": 12,
+      "occupancy": 12,
+      "type": "Day",
+      "img": "12",
+      "typeFacility": {
+        "id": 1,
+        "name": "Villa"
+      },
+      "description": "12",
+      "standard": "Family Room",
+      "floors": "12",
+      "amenities": "12",
+      "id": 10,
+      "pool": "90"
     }
   ],
   "types": [
