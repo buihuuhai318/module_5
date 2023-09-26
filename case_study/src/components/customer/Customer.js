@@ -11,10 +11,14 @@ import {toast} from "react-toastify";
 function Customer() {
 
     const [list, setList] = useState([]);
-
     const [show, setShow] = useState(false);
-
     const [myModal, setMyModal] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
+    const [refresh, setRefresh] = useState(true);
+    const [totalPages, setTotalPages] = useState();
+    const [searchName, setSearchName] = useState("");
+    const [records, setRecords] = useState("");
+    const [limit, setLimit] = useState(3);
 
     const handleClose = () => {
         setShow(false);
@@ -27,11 +31,37 @@ function Customer() {
     }
 
     useEffect(() => {
-        getCustomers();
-    }, [])
+        getCustomers(currentPage, searchName);
+    }, [refresh, searchName, limit])
 
-    const getCustomers = async () => {
-        setList(await CustomerService.getAll());
+    const getCustomers = async (page, search) => {
+        const res = await CustomerService.getAll(page, limit, search);
+        // console.log(res)
+        setList(res[0]);
+        setRecords(res[1]);
+        setTotalPages(Math.ceil(res[1] / limit));
+    }
+
+    const prePage = () => {
+        setCurrentPage((currentPage) => currentPage - 1);
+        setRefresh((refresh) => !refresh);
+    }
+
+    const nextPage = () => {
+        setCurrentPage((currentPage) => currentPage + 1);
+        setRefresh((refresh) => !refresh);
+    }
+
+    const handleSearch = () => {
+        setCurrentPage(1);
+        getCustomers(currentPage, searchName);
+        setRefresh((refresh) => !refresh);
+    }
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
     }
 
     const deleteCustomer = async (data) => {
@@ -41,7 +71,7 @@ function Customer() {
             toast("Xoá thành công");
             handleClose();
         } else {
-            toast.error("Xoá thất bại")
+            toast.error("Xoá thất bại");
         }
     }
 
@@ -60,7 +90,37 @@ function Customer() {
                     </Link>
                 </div>
             </div>
+
             <div className="row" style={{margin: '5% 5% 5% 5%', display: 'flex'}}>
+                <div className="row">
+                    <div className="col-4">
+                        <h1>List Customer</h1>
+                    </div>
+                    <div className="col-2">
+                        <select className="form-select" aria-label="Default select example" onChange={(e) => {
+                            const selectedValue = e.target.value;
+                            setLimit(selectedValue/2);
+                        }}>
+                            <option selected disabled>page</option>
+                            <option value="2">1</option>
+                            <option value="4">2</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+                    <div className="col-6">
+                        <div className="input-group mb-3" style={{width: "100%"}}>
+                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={() => handleSearch}>Search</button>
+                            <input type="text" className="form-control"
+                                   aria-label="Recipient's username" aria-describedby="button-addon2" onKeyDown={handleKeyDown}
+                                   onChange={(e) => setSearchName(e.target.value)}
+                            />
+
+                        </div>
+                    </div>
+                </div>
+                <hr/>
                 <table className="table">
                     <thead>
                     <tr>
@@ -89,7 +149,8 @@ function Customer() {
                             <td>{customer.typeCustomer.name}</td>
                             {/*<td>{customer.address}</td>*/}
                             <td>
-                                <Link to={`/customer/edit/${customer.id}`} className="btn btn-warning" style={{marginRight: '1%'}}>Edit
+                                <Link to={`/customer/edit/${customer.id}`} className="btn btn-warning"
+                                      style={{marginRight: '1%'}}>Edit
                                 </Link>
                                 <Button variant="danger" onClick={() => handleShow(customer)}>
                                     Delete
@@ -105,23 +166,24 @@ function Customer() {
                 <nav aria-label="Page navigation example">
                     <ul className="pagination" style={{marginLeft: '40%'}}>
                         <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Previous">
+                            <button className="page-link" aria-label="Previous" onClick={() => prePage()} tabIndex={-1} disabled={currentPage <= 1}>
                                 <span aria-hidden="true">&laquo;</span>
-                            </a>
+                            </button>
                         </li>
-                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                        <li className="page-item"><button className="page-link" >{currentPage}/{totalPages}</button></li>
+                        {/*<li className="page-item"><button className="page-link" >2</button></li>*/}
+                        {/*<li className="page-item"><button className="page-link" >3</button></li>*/}
                         <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Next">
+                            <button className="page-link" aria-label="Next" disabled={currentPage >= totalPages} onClick={() => nextPage()}>
                                 <span aria-hidden="true">&raquo;</span>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </nav>
             </div>
         </>
     );
+
     function MyModal({data, action}) {
         return (
             <>
@@ -141,7 +203,6 @@ function Customer() {
         )
     }
 }
-
 
 
 export default Customer;

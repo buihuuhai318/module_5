@@ -3,10 +3,12 @@ import axios from "axios";
 
 const apiCustomer = "http://localhost:8080/customerList";
 
-export const getAll = async () => {
+export const getAll = async (page, limit, search) => {
     try {
-        const res = await axios.get(apiCustomer);
-        return res.data;
+        const res = await axios.get(apiCustomer + `?_page=${page}&_limit=${limit}&name_like=${search}`);
+        const records = res.headers.get("x-total-count");
+        const data = res.data;
+        return [data, records];
     } catch (e) {
         alert("Không có dữ liệu");
     }
