@@ -13,12 +13,12 @@ function Customer() {
     const [list, setList] = useState([]);
     const [show, setShow] = useState(false);
     const [myModal, setMyModal] = useState({});
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
     const [refresh, setRefresh] = useState(true);
-    const [totalPages, setTotalPages] = useState();
+    const [totalPages, setTotalPages] = useState(0);
     const [searchName, setSearchName] = useState("");
     const [records, setRecords] = useState("");
-    const [limit, setLimit] = useState(3);
+    const [limit, setLimit] = useState(5);
 
     const handleClose = () => {
         setShow(false);
@@ -27,7 +27,7 @@ function Customer() {
     const handleShow = (object) => {
         setShow(true);
         setMyModal(object);
-        console.log(object);
+        // console.log(object);
     }
 
     useEffect(() => {
@@ -36,10 +36,15 @@ function Customer() {
 
     const getCustomers = async (page, search) => {
         const res = await CustomerService.getAll(page, limit, search);
-        // console.log(res)
-        setList(res[0]);
-        setRecords(res[1]);
-        setTotalPages(Math.ceil(res[1] / limit));
+        console.log(res)
+        setList(res.content);
+        setRecords(res.size);
+        setTotalPages(res.totalPages);
+        // console.log(res.totalPages);
+        console.log(totalPages)
+        // console.log(records)
+        // console.log(currentPage)
+        // setTotalPages(Math.ceil(records / limit));
     }
 
     const prePage = () => {
@@ -66,8 +71,8 @@ function Customer() {
 
     const deleteCustomer = async (data) => {
         const res = await CustomerService.del(data);
-        setList(await CustomerService.getAll());
         if (res.status === 200) {
+            await getCustomers(currentPage, searchName);
             toast("Xoá thành công");
             handleClose();
         } else {
@@ -99,12 +104,11 @@ function Customer() {
                     <div className="col-2">
                         <select className="form-select" aria-label="Default select example" onChange={(e) => {
                             const selectedValue = e.target.value;
-                            setLimit(selectedValue/2);
+                            setLimit(selectedValue);
                         }}>
-                            <option selected disabled>page</option>
-                            <option value="2">1</option>
-                            <option value="4">2</option>
-                            <option value="5">5</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="5" selected>5</option>
                             <option value="10">10</option>
                             <option value="20">20</option>
                         </select>
@@ -116,7 +120,6 @@ function Customer() {
                                    aria-label="Recipient's username" aria-describedby="button-addon2" onKeyDown={handleKeyDown}
                                    onChange={(e) => setSearchName(e.target.value)}
                             />
-
                         </div>
                     </div>
                 </div>
@@ -166,15 +169,15 @@ function Customer() {
                 <nav aria-label="Page navigation example">
                     <ul className="pagination" style={{marginLeft: '40%'}}>
                         <li className="page-item">
-                            <button className="page-link" aria-label="Previous" onClick={() => prePage()} tabIndex={-1} disabled={currentPage <= 1}>
+                            <button className="page-link" aria-label="Previous" onClick={() => prePage()} tabIndex={-1} disabled={currentPage + 1 <= 1}>
                                 <span aria-hidden="true">&laquo;</span>
                             </button>
                         </li>
-                        <li className="page-item"><button className="page-link" >{currentPage}/{totalPages}</button></li>
+                        <li className="page-item"><button className="page-link" >{currentPage + 1}/{totalPages}</button></li>
                         {/*<li className="page-item"><button className="page-link" >2</button></li>*/}
                         {/*<li className="page-item"><button className="page-link" >3</button></li>*/}
                         <li className="page-item">
-                            <button className="page-link" aria-label="Next" disabled={currentPage >= totalPages} onClick={() => nextPage()}>
+                            <button className="page-link" aria-label="Next" disabled={currentPage + 1 >= totalPages} onClick={() => nextPage()}>
                                 <span aria-hidden="true">&raquo;</span>
                             </button>
                         </li>

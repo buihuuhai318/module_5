@@ -29,12 +29,18 @@ function CreateCustomer() {
         phone: "",
         email: "",
         address: "",
-        typeCustomer: {}
+        typeCustomer: ""
     }
     const createCustomer = async (data) => {
-        const res = await CustomerService.create(data);
-        data.typeCustomer = JSON.parse(data.typeCustomer);
-        if (res.status === 201) {
+        let customerTemp = {
+            ...data,
+            typeCustomer: {
+                id: data.typeCustomer
+            }
+        }
+        console.log(customerTemp)
+        const res = await CustomerService.create(customerTemp);
+        if (res.status === 200) {
             navigate("/customer");
             toast("Thêm mới thành công");
         } else {
@@ -109,7 +115,7 @@ function CreateCustomer() {
                         <Field as="select" className="form-select" aria-label="Default select example" id="select1"
                                name="typeCustomer">
                             {types.map((type, index) => (
-                                <option key={index} value={JSON.stringify(type)}>{type.name}</option>
+                                <option key={index} value={type.id}>{type.name}</option>
                             ))}
 
                         </Field>
