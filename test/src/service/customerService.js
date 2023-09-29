@@ -1,16 +1,11 @@
 import axios from "axios";
 
 
-const apiCustomer = "http://localhost:8080/api/customers";
+const apiCustomer = "http://localhost:8080/customers";
 
 export const getAll = async (page, limit, search) => {
     try {
-        const res = await axios.get(apiCustomer + `?_page=${page}&_limit=${limit}&name_like=${search}`);
-        if (res != null) {
-            console.log(res)
-            return res.data;
-        }
-        return [];
+        return await axios.get(apiCustomer + `?_page=${page}&_limit=${limit}&name_like=${search}`);
     } catch (e) {
         alert("Không có dữ liệu");
     }
@@ -37,7 +32,7 @@ export const del = async (data) => {
     try {
         return await axios.delete(apiCustomer + `/${data.id}`, data);
     } catch (e) {
-        // alert("Không có dữ liệu");
+        alert("Không có dữ liệu");
     }
 }
 

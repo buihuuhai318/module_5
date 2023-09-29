@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 function User() {
     const users = useSelector(state => state.users);
     console.log(users);
-    function deleteUser(id) {
+    const deleteUsers = (id) => ({
+        type: 'DELETE_USER',
+        payload: id,
+    });
 
-    }
     return (
         <div>
             <table>
@@ -26,7 +28,7 @@ function User() {
                         <td>{user.username}</td>
                         <td>{user.email}</td>
                         <td>{user.website}</td>
-                        <td><button type="button" onClick={() => deleteUser(user.id)}>delete</button></td>
+                        <td><button type="button" onClick={() => deleteUsers(user.id)}>delete</button></td>
                     </tr>
                 ))}
                 </tbody>

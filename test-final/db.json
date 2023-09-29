@@ -1,0 +1,70 @@
+{
+  "vegetables": [
+    {
+      "id": 1,
+      "code": "RAU-001",
+      "name": "rau can sa",
+      "unit": "kg",
+      "price": 100000,
+      "date": "2023-09-12",
+      "type": {
+        "id": 1,
+        "name": "Rau"
+      }
+    },
+    {
+      "id": 2,
+      "code": "RAU-002",
+      "name": "rau co dai",
+      "unit": "tui",
+      "price": 100000,
+      "date": "2023-09-12",
+      "type": {
+        "id": 2,
+        "name": "Cu"
+      }
+    },
+    {
+      "id": 3,
+      "code": "RAU-003",
+      "name": "rau muong",
+      "unit": "tui",
+      "price": 100000,
+      "date": "2023-09-12",
+      "type": {
+        "id": 3,
+        "name": "Qua"
+      }
+    },
+    {
+      "id": 4,
+      "code": "RAU-004",
+      "name": "hoa dam but",
+      "unit": "bo",
+      "price": 100000,
+      "date": "2023-09-12",
+      "type": {
+        "id": 4,
+        "name": "Hoa"
+      }
+    }
+  ],
+  "types": [
+    {
+      "id": 4,
+      "name": "Hoa"
+    },
+    {
+      "id": 3,
+      "name": "Qua"
+    },
+    {
+      "id": 2,
+      "name": "Cu"
+    },
+    {
+      "id": 1,
+      "name": "Rau"
+    }
+  ]
+}

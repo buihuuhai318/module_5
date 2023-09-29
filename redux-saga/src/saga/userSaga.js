@@ -1,5 +1,5 @@
 import axios from "axios";
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeLatest, call } from "redux-saga/effects";
 import {
     FETCH_USER,
     FETCH_USER_SUCCESS,
@@ -18,12 +18,14 @@ function* getUser(action) {
     }
 }
 
-function*  deleteUser(action, id) {
+function* deleteUserSaga(action) {
     try {
-        const response = yield axios.get(BaseURL + `/${id}`);
+        // yield call(axios.delete, `https://jsonplaceholder.typicode.com/users/${action.payload}`);
+        // yield put({ type: 'GET_USERS' });
+        const response = yield axios.get(BaseURL + `/${action.payload}`);
         alert(response.status)
     } catch (error) {
-        console.log("error - getUser : ", error);
+        console.error(error);
     }
 }
 

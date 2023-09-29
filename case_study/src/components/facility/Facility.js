@@ -6,7 +6,6 @@ import * as FacilityService from "../../service/FacilityService";
 import {toast} from "react-toastify";
 
 
-
 function Facility() {
 
     const navigate = useNavigate();

@@ -1,0 +1,116 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Nguyễn Văn A",
+      "gender": "Female",
+      "typeCustomer": {
+        "id": 4,
+        "name": "Silver"
+      },
+      "address": "123 Đường ABC, Quận XYZ, Thành phố HCM"
+    },
+    {
+      "id": 2,
+      "name": "Trần Thị B",
+      "gender": "Female",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
+      "address": "456 Đường XYZ, Quận ABC, Thành phố Hà Nội"
+    },
+    {
+      "id": 3,
+      "name": "Lê Văn Cu",
+      "gender": "Male",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
+      "address": "789 Đường DEF, Quận MNO, Thành phố Đà Nẵng"
+    },
+    {
+      "name": "Bui Huu Hai",
+      "gender": "Female",
+      "address": "da nang",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
+      "id": 4
+    },
+    {
+      "name": "Bui Huu Hai",
+      "gender": "Female",
+      "address": "13123213",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
+      "id": 5
+    },
+    {
+      "name": "Test 1",
+      "gender": "Male",
+      "address": "123",
+      "typeCustomer": {
+        "id": 2,
+        "name": "Platinum"
+      },
+      "id": 6
+    },
+    {
+      "name": "Bui Huu Hai Test f",
+      "gender": "Female",
+      "address": "123 test",
+      "typeCustomer": {
+        "id": 5,
+        "name": "Member"
+      },
+      "id": 7
+    },
+    {
+      "name": "Bui Huu Hai",
+      "gender": "Male",
+      "address": "",
+      "typeCustomer": {
+        "id": 3,
+        "name": "Gold"
+      },
+      "id": 8
+    },
+    {
+      "name": "Bui hai",
+      "gender": "Male",
+      "address": "",
+      "typeCustomer": {
+        "id": 2,
+        "name": "Platinum"
+      },
+      "id": 9
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "name": "Diamond"
+    },
+    {
+      "id": 2,
+      "name": "Platinum"
+    },
+    {
+      "id": 3,
+      "name": "Gold"
+    },
+    {
+      "id": 4,
+      "name": "Silver"
+    },
+    {
+      "id": 5,
+      "name": "Member"
+    }
+  ]
+}
