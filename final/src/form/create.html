@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="row" style={{margin: '5% auto 5% auto', width: '50%'}}>
+<form>
+    <div class="mb-3">
+        <label htmlFor="exampleInputEmail1" class="form-label">Code</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" name="code"
+               aria-describedby="emailHelp"/>
+    </div>
+    <div class="mb-3">
+        <label htmlFor="exampleInputEmail1" class="form-label">Name</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" name="name"
+               aria-describedby="emailHelp"/>
+    </div>
+    <div class="mb-3">
+        <label htmlFor="select" class="form-label">Unit</label>
+        <input as="select" class="form-select" aria-label="Default select example" id="select"
+               name="unit">
+            <option value={null} disabled selected>Unit</option>
+            <option value="Tui">Tui</option>
+            <option value="Bo">Bo</option>
+            <option value="Kg">Kg</option>
+        </input>
+    </div>
+    <div class="mb-3">
+        <label htmlFor="exampleInputPassword1" class="form-label">Price</label>
+        <input type="number" class="form-control" id="exampleInputPassword1" name="price"/>
+    </div>
+    <div class="mb-3">
+        <label htmlFor="select1" class="form-label">Type</label>
+        <input as="select" class="form-select" aria-label="Default select example" id="select1"
+               name="type">
+            <option value={null} disabled selected={true}>Type</option>
+            {types.map((type, index) => (
+            <option key={index} value={JSON.stringify(type)}>{type.name}</option>
+            ))}
+
+        </input>
+    </div>
+    <div class="mb-3">
+        <label htmlFor="exampleInputPassword1" class="form-label">Date</label>
+        <input type="date" class="form-control" id="exampleInputPassword1" name="date"/>
+
+    </div>
+    <hr/>
+    <div class="d-grid gap-2 d-md-block">
+        <a style={{marginLeft: '75%', marginRight: '1%'}} class="btn btn-danger" to="/"
+        role="button">Back</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+</div>
+</body>
+</html>

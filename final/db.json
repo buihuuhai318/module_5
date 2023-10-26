@@ -1,0 +1,125 @@
+{
+  "book": [
+    {
+      "id": 1,
+      "code": "BO-0011",
+      "name": "Book 1",
+      "type": {
+        "id": 4,
+        "name": "Trinh Thám"
+      },
+      "date": "20/9/2023",
+      "quantity": 2
+    },
+    {
+      "id": 2,
+      "code": "BO-0021",
+      "name": "Book 2",
+      "type": {
+        "id": 3,
+        "name": "Tiểu Thuyết"
+      },
+      "date": "20/9/2023",
+      "quantity": 3
+    },
+    {
+      "id": 3,
+      "code": "BO-0031",
+      "name": "Book 3",
+      "type": {
+        "id": 2,
+        "name": "Khoa Học"
+      },
+      "date": "20/9/2023",
+      "quantity": 4
+    },
+    {
+      "code": "BO-0000",
+      "name": "Bui Huu Hai",
+      "type": {
+        "id": 3,
+        "name": "Tiểu Thuyết"
+      },
+      "date": "20/9/2023",
+      "quantity": 0,
+      "id": 4
+    },
+    {
+      "code": "BO-9991",
+      "name": "Bui Huu Hai",
+      "type": {
+        "id": 1,
+        "name": "Truyện Ngắn"
+      },
+      "date": "01/10/2023",
+      "quantity": 12312312321,
+      "id": 9
+    },
+    {
+      "code": "BO-9911",
+      "name": "test",
+      "type": {
+        "id": 2,
+        "name": "Khoa Học"
+      },
+      "date": "01/10/2023",
+      "quantity": 123,
+      "id": 10
+    },
+    {
+      "code": "BO-2222",
+      "name": "Bui Huu Hai",
+      "type": {
+        "id": 3,
+        "name": "Tiểu Thuyết"
+      },
+      "date": "25/09/2023",
+      "quantity": 12312312321312313000,
+      "id": 11
+    },
+    {
+      "code": "BO-0000",
+      "name": "Test",
+      "type": {
+        "id": 5,
+        "name": "Test"
+      },
+      "date": "01/10/2023",
+      "quantity": 123123,
+      "id": 12
+    },
+    {
+      "code": "BO-1234",
+      "name": "hai tt",
+      "type": {
+        "id": 5,
+        "name": "Test"
+      },
+      "date": "02/10/2023",
+      "quantity": 1,
+      "id": 13
+    }
+  ],
+  "types": [
+    {
+      "id": 5,
+      "name": "Test"
+    },
+    {
+      "id": 4,
+      "name": "Trinh Thám"
+    },
+    {
+      "id": 3,
+      "name": "Tiểu Thuyết"
+    },
+    {
+      "id": 2,
+      "name": "Khoa Học"
+    },
+    {
+      "id": 1,
+      "name": "Truyện Ngắn"
+    }
+  ]
+}

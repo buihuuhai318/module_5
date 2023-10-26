@@ -26,19 +26,19 @@
     },
     {
       "id": 3,
-      "code": "RAU-003",
+      "code": "MHH-0031",
       "name": "rau muong",
       "unit": "tui",
       "price": 100000,
       "date": "2023-09-12",
       "type": {
-        "id": 3,
-        "name": "Qua"
+        "id": 2,
+        "name": "Cu"
       }
     },
     {
       "id": 4,
-      "code": "RAU-004",
+      "code": "MHH-0041",
       "name": "hoa dam but",
       "unit": "bo",
       "price": 100000,

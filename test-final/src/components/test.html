@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+
+    let m = +prompt("nhap m: ");
+    let n = +prompt("nhap n: ");
+    console.log(sumEvenNum(m, n));
+
+    function sumEvenNum(a, b) {
+        let arr = [];
+        let sum = 0;
+        for (let i = 0; i < a; i++) {
+            arr[i] = [];
+            for (let j = 0; j < b; j++) {
+                arr[i][j] = +prompt(`nhap so thu [${i}][${j}]: `);
+                if (arr[i][j] % 2 === 0) {
+                    sum = sum + arr[i][j];
+                }
+            }
+        }
+        return sum;
+    }
+
+
+</script>
+</body>
+</html>
